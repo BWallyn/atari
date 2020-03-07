@@ -104,7 +104,7 @@ from gym_wrappers import MainGymWrapper
 class Atari:
 
     def __init__(self,
-                 game_name: str='Breakout', game_mode: str='ddqn_training',
+                 game_name: str='Alien', game_mode: str='ddqn_training',
                  render: bool=False, total_step_limit: int=500000,
                  total_run_limit: int=None, clip: bool=False):
         """Initialise Atari class
