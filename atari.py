@@ -165,6 +165,7 @@ class Atari:
                 game_model.step_update(total_step)
 
                 if terminal:
+                    print(score)
                     l_scores.append(score)
                     game_model.save_run(score, step, run)
                     break
