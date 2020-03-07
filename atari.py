@@ -141,7 +141,7 @@ class Atari:
             if self.total_run_limit is not None and run >= self.total_run_limit:
                 print("Reached total run limit of: " + str(self.total_run_limit))
                 while_loop_bool = False
-                #exit(0)
+
 
             run += 1
             current_state = env.reset()
@@ -152,7 +152,7 @@ class Atari:
                     print("Reached total step limit of: " + str(self.total_step_limit))
                     self._save_scores(l_scores)
                     while_loop_bool = False
-                    #exit(0)
+
                 total_step += 1
                 step += 1
 
@@ -171,7 +171,7 @@ class Atari:
 
                 if terminal:
                     print(score)
-                    #l_scores.append(score)
+                    l_scores.append(score)
                     game_model.save_run(score, step, run)
                     break
 
