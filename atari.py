@@ -122,7 +122,8 @@ class Atari:
         env_name = game_name + "Deterministic-v4"  # Handles frame skipping (4) at every iteration
         env = MainGymWrapper.wrap(gym.make(env_name))
         self._main_loop(self._game_model(env.action_space.n), env)#, render, total_step_limit, total_run_limit, clip)
-    
+
+
     def _main_loop(self, game_model, env):
         """
         """
@@ -133,20 +134,23 @@ class Atari:
         run = 0
         total_step = 0
         l_scores = []
+        while_loop_bool = True
 
-        while True:
+        while while_loop_bool:
             if self.total_run_limit is not None and run >= self.total_run_limit:
                 print("Reached total run limit of: " + str(self.total_run_limit))
-                self._save_scores(l_scores)
+                while_loop_bool = False
                 exit(0)
 
             run += 1
             current_state = env.reset()
             step = 0
             score = 0
-            while True:
+            while while_loop_bool:
                 if total_step >= self.total_step_limit:
                     print("Reached total step limit of: " + str(self.total_step_limit))
+                    self._save_scores(l_scores)
+                    while_loop_bool = False
                     exit(0)
                 total_step += 1
                 step += 1
@@ -195,8 +199,9 @@ class Atari:
         else:
             print("Unrecognized mode. Use --help")
             exit(1)
-    
-    def _save_scores(self, l_scores, directory_path = "./scores/"):
+
+
+    def _save_scores(self, l_scores, directory_path = "scores/"):
         """Function to save scores.
         """
 
@@ -204,10 +209,10 @@ class Atari:
         if os.path.exists(directory_path):
             shutil.rmtree(directory_path)#, ignore_errors=True)
         os.makedirs(directory_path)
-        file_name = "DQN_" + self.game_name + "_T" + self.total_step_limit + ".p"
+        file_name = "DQN_" + str(self.game_name) + "_T" + str(self.total_step_limit) + ".p"
 
         dic_results = {
-            'rewards': l_scores,
+            'reward': l_scores,
         }
 
         pickle.dump(dic_results, open(directory_path + file_name, 'wb'))
