@@ -6,6 +6,7 @@ import atari_py
 import shutil
 import os
 import pickle
+from sys import exit
 
 from game_models.ddqn_game_model import DDQNTrainer, DDQNSolver
 from game_models.ge_game_model import GETrainer, GESolver
